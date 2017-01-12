@@ -1,7 +1,8 @@
 import praw
 import prawcore
-from pprint import pprint
 import sys
+import json
+from pprint import pprint
 from user import user,pw
 
 DEBUG_MESSAGES = True
@@ -27,22 +28,18 @@ except:
     print "unrecognized error"
     sys.exit(0)
 
-
-# 'connected as ' +
 redditor = praw.models.Redditor(reddit,user)
 print(redditor)
 
-savedLinks = redditor.saved(limit=3)
+savedLinks = redditor.saved()
 
 for link in savedLinks:
-    pprint(vars(link))
+    linkdata = vars(link)
+    print(linkdata["name"] + ": "),
 
-# i = 0
-# for link in saved:
-#     if i > 4:
-#         break
-#     item = praw.models.Submission(reddit, link)
-#     print item.fullname
-#     i += 1
+    if linkdata["name"][:2] == "t1":
+        pprint(linkdata["link_title"].encode("utf-8"))
+    elif linkdata["name"][:2] == "t3":
+        pprint(linkdata["title"].encode("utf-8"))
 
 debug_print("Done.")
