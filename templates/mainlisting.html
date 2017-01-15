@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Reddit Saved Links</title>
+  </head>
+  <body>
+      <h1>{{ theUser.name }}'s saved links</h1>
+      <div class="main-listing">
+        {% for link in savedLinks %}
+          <div class="link-container">
+            {{ link }}
+          </div>
+        {% endfor %}
+      </div>
+  </body>
+</html>

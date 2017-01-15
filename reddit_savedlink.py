@@ -11,7 +11,22 @@ def debug_print( msg ) :
     if DEBUG_MESSAGES:
         print msg
 
-def connect():
+# def connect():
+
+def getSavedLinks( cmd ):
+    print('----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
+    print("Starting...")
+
+    # cmd = "list"
+    #
+    # argc = len(sys.argv)
+    # if argc == 2:
+    #     cmd = sys.argv[1]
+    # elif argc > 2:
+    #     print("usage: python main.py <cmd>")
+    #     sys.exit(0)
+
+    # reddit = connect()
     print("Connecting to Reddit...")
     try:
         reddit = praw.Reddit(client_id='rsHOJ-vVYdLZuw',
@@ -27,39 +42,25 @@ def connect():
         print "unrecognized error"
         sys.exit(0)
 
-def getSavedLinks( cmd ):
-    print('----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
-    print("Starting...")
-
-    # cmd = "list"
-    #
-    # argc = len(sys.argv)
-    # if argc == 2:
-    #     cmd = sys.argv[1]
-    # elif argc > 2:
-    #     print("usage: python main.py <cmd>")
-    #     sys.exit(0)
-
-    connect()
-
     print("Connected as "),
     redditor = praw.models.Redditor(reddit,user)
     print(redditor)
 
     print("Getting saved links")
-    savedLinks = redditor.saved(limit=5)
+    savedLinks = redditor.saved()
     print("Got 'em.")
 
-    savedLinks = []
+    savedLinkOut = []
     if cmd == "list":
         for link in savedLinks:
             linkdata = vars(link)
             print(linkdata["name"] + ": "),
 
             if linkdata["name"][:2] == "t1":
-                savedLinks.push(linkdata["link_title"].encode("utf-8"))
+                savedLinkOut.append(linkdata["link_title"])
             elif linkdata["name"][:2] == "t3":
-                savedLinks.push(linkdata["title"].encode("utf-8"))
+                savedLinkOut.append(linkdata["title"])
+            print("a")
     elif cmd == "dev":
         linkdata = None
         for link in savedLinks:
@@ -67,5 +68,6 @@ def getSavedLinks( cmd ):
             break
         pprint(linkdata["subreddit"])
         pprint(type(linkdata["subreddit"]))
+
     print("Done.")
-    return savedLinks
+    return savedLinkOut
