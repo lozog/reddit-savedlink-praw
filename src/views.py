@@ -1,9 +1,9 @@
-from flask import Flask
+from src import app
+
 from flask import render_template
+from flask_sqlalchemy import SQLAlchemy
 
 from reddit_savedlink import *
-
-app = Flask(__name__)
 
 @app.route("/")
 @app.route("/index")
@@ -15,6 +15,3 @@ def index():
     return render_template('mainlisting.html',
                            theUser=theUser,
                            savedLinks=savedLinks)
-
-if __name__ == "__main__":
-    app.run()
