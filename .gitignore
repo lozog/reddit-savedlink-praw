@@ -1,3 +1,5 @@
 *.pyc
 user.py
 .DS_Store
+*.db
+db_repository/
