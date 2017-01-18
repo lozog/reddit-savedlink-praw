@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Reddit Saved Links</title>
+  </head>
+  <body>
+      <h1>{{ theUser.name }}'s saved links</h1>
+      <hr>
+      <div class="maincol">
+        <div id="getdata">
+          <button id="pull-reddit-btn" onclick="refreshDB();" type="button" name="pull-reddit">Refresh DB</button
+          <div id="pull-reddit-msg">
+            ...
+          </div>
+        </div>
+        <div id="mainlisting" class="">
+
+        </div>
+      </div>
+  </body>
+  <script src="{{ url_for('static', filename='nano.js') }}" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename='reddit_savedlink.js') }}" type="text/javascript"></script>
+
+</html>
