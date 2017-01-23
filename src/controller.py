@@ -23,11 +23,23 @@ def index():
 
 @app.route("/getSavedLinks", methods=['POST'])
 def getSavedLinksFromReddit():
-    savedLinks = getSavedLinks("list",1,1)
+    savedLinks = getSavedLinks("list",15,1)
     # savedLinks = models.SavedLink.query.all()
     print len(savedLinks)
     for savedLink in savedLinks:
-        pprint(savedLink)
+        # pull data out of json
+
+
+
+        fullname = savedLink["name"]
+        kind     = fullname[:2]
+        title    = savedLink["link_title"] if (kind == "t1") else savedLink["title"]
+        url      = savedLink["link_url"] if (kind == "t1") else savedLink["url"]
+
+        print('%s: %s - %s' % (fullname, title, url))
+
+
+        # create model, insert into DB
         # u = models.SavedLink(fullname='test', title='test title', url='www.google.com')
         # db.session.add(u)
         # db.session.commit()

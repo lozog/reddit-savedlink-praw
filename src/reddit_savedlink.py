@@ -50,7 +50,7 @@ def getSavedLinksPRAW(redditor, limit, after, count=0):
 # limit: # of total pulls to perform. Use 0 for unlimited
 def getSavedLinks( cmd, count=100, limit=0 ):
     print('----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
-    print("Starting with count %d and limit %d", count, limit)
+    print("Starting with count %d and limit %d" % (count, limit))
 
     reddit = connect()
 
@@ -61,8 +61,6 @@ def getSavedLinks( cmd, count=100, limit=0 ):
     reqTime = time()
     print reqTime
     savedLinks = getSavedLinksPRAW(redditor, count, None)
-    # if limit > 0:
-        # limit -= 1
 
     savedLinkOut = []
     if cmd == "list":
