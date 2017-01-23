@@ -29,7 +29,9 @@ def connect():
         sys.exit(0)
     return reddit
 
-def getSavedLinksPRAW(redditor, limit, after, count=25):
+# limit: max # of links to pull
+# count: # of links pulled so far
+def getSavedLinksPRAW(redditor, limit, after, count=0):
     print("Getting saved links")
     try:
         if after != None:
@@ -44,9 +46,11 @@ def getSavedLinksPRAW(redditor, limit, after, count=25):
     print("Got 'em.")
     return savedLinks
 
-def getSavedLinks( cmd ):
+# count: # of links to pull at a time
+# limit: # of total pulls to perform. Use 0 for unlimited
+def getSavedLinks( cmd, count=100, limit=0 ):
     print('----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
-    print("Starting...")
+    print("Starting with count %d and limit %d", count, limit)
 
     reddit = connect()
 
@@ -54,47 +58,49 @@ def getSavedLinks( cmd ):
     redditor = praw.models.Redditor(reddit,user)
     print(redditor)
 
-    limit = 100
     reqTime = time()
     print reqTime
-    savedLinks = getSavedLinksPRAW(redditor, limit, None)
+    savedLinks = getSavedLinksPRAW(redditor, count, None)
+    # if limit > 0:
+        # limit -= 1
 
     savedLinkOut = []
     if cmd == "list":
-        i = 0
+        i = 1                                                   # loop index starts at 1 since we already performed a pull
         while True:
-            # ratelimit: check to see if enough time has elapsed
-            if ( time() - reqTime < 2 ):
-                # busy-wait until enough time has elapsed
-                continue
+            if ( time() - reqTime < 2 ):                        # ratelimit: check to see if enough time has elapsed
+                continue                                        # busy-wait until enough time has elapsed
 
             print time()
 
-            count = limit
+            countRemaining = count
             for link in savedLinks:
                 linkdata = vars(link)
                 fullname = linkdata["name"]
                 # print(fullname + ": "),
 
-                if fullname[:2] == "t1":
-                    savedLinkOut.append(linkdata["link_title"])
-                elif fullname[:2] == "t3":
-                    savedLinkOut.append(linkdata["title"])
+                # if fullname[:2] == "t1":
+                #     savedLinkOut.append(linkdata["link_title"])
+                # elif fullname[:2] == "t3":
+                #     savedLinkOut.append(linkdata["title"])
+
+                savedLinkOut.append(linkdata)
                 # pprint(linkdata)
-                count -= 1
+                countRemaining -= 1
 
-            print ("count: %d" % count)
+            print ("countRemaining: %d" % countRemaining)
 
-            if ( i == 5 ):
+            if ( limit > 0 and i == limit ):
+                print 'At limit. Breaking.'
                 break
 
-            if ( count > limit ):
-                # if we didn't reach the limit, we're at the end of the content
+            if ( countRemaining > 0 ):                      # if we didn't reach the limit, we're at the end of the content
+                # print("%d remaining. Breaking.", countRemaining)
                 break
 
             print "retrieving more..."
-            savedLinks = getSavedLinksPRAW(redditor, limit, fullname, count)
             i += 1
+            savedLinks = getSavedLinksPRAW(redditor, limit, fullname, i * count)
 
     elif cmd == "dev":
         linkdata = None

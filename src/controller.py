@@ -12,10 +12,8 @@ from reddit_savedlink import *
 def index():
     # savedLinks = getSavedLinks("list")
 
-    # u = models.SavedLink(fullname='test', title='test title', url='www.google.com')
-    # db.session.add(u)
-    # db.session.commit()
     savedLinks = models.SavedLink.query.all()
+    # savedLinks = []
 
     theUser = {'name': 'tom---swift'}
 
@@ -25,8 +23,14 @@ def index():
 
 @app.route("/getSavedLinks", methods=['POST'])
 def getSavedLinksFromReddit():
-    savedLinks = getSavedLinks("list")
+    savedLinks = getSavedLinks("list",1,1)
     # savedLinks = models.SavedLink.query.all()
+    print len(savedLinks)
+    for savedLink in savedLinks:
+        pprint(savedLink)
+        # u = models.SavedLink(fullname='test', title='test title', url='www.google.com')
+        # db.session.add(u)
+        # db.session.commit()
 
     print "getSavedLinks"
     # TODO: store saved links in db
