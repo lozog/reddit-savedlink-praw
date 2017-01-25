@@ -1,7 +1,20 @@
 <div class="main-listing">
-  {% for link in savedLinks %}
     <div class="link-container">
-      {{ link }}
+      <table>
+        <thead>
+          <tr class="table-header">
+            <td>Subreddit</td>
+            <td>Title</td>
+          </tr>
+        </thead>
+        <tbody>
+        {% for link in savedLinks %}
+          <tr class="table-row">
+            <td>{{ link.subreddit }}</td>
+            <td><a href="{{ link.url }}">{{ link.title }}</a></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
     </div>
-  {% endfor %}
 </div>
