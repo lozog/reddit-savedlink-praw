@@ -27,6 +27,7 @@ def index():
 def getSavedLinksFromReddit():
     savedLinks = getSavedLinks('list',100,0)
     # savedLinks = models.SavedLink.query.all()
+    # savedLinks = []
     print len(savedLinks)
     for savedLink in savedLinks:
         # pull data out of json
@@ -43,6 +44,7 @@ def getSavedLinksFromReddit():
 
 
         # create model, insert into DB
+        # TODO: try https://github.com/mitsuhiko/flask-sqlalchemy/issues/241
         if False:
             u = models.SavedLink(fullname     = fullname,
                                  kind         = kind,
@@ -55,6 +57,7 @@ def getSavedLinksFromReddit():
             db.session.commit()
 
     print 'getSavedLinks'
+    # print db.__table__
     # TODO: store saved links in db
     return render_template('mainlisting.html',
                             savedLinks=savedLinks)
