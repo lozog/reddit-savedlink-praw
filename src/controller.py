@@ -1,15 +1,11 @@
-from src import app #, cursor, db
+from src import app
 
 import praw
 import sqlite3
 
 from flask import render_template
-# from flask_sqlalchemy import SQLAlchemy
 
 from reddit_savedlink import *
-# import config
-
-# from user import user,pw
 
 @app.route('/')
 @app.route('/index')
@@ -21,17 +17,14 @@ def index():
     savedLinksResult = cursor.execute("SELECT * FROM savedlinks")
 
     savedLinks = savedLinksResult.fetchall()
-    # print savedLinks
 
     for row in savedLinks:
         print "row: ",
         print row
-        # savedLinks.append(row)
+
     print "done"
     cursor.close()
     connection.close()
-
-
 
     theUser = {'name': 'tom---swift'}
 
@@ -43,7 +36,6 @@ def index():
 def getSavedLinksFromReddit():
     savedLinks = getSavedLinks('list',100,0)
     # savedLinks = getSavedLinks('list',1,1)
-    # savedLinks = []
 
     connection = sqlite3.connect('savedlinks.db')
     cursor = connection.cursor()
@@ -51,7 +43,6 @@ def getSavedLinksFromReddit():
     print "%d savedLinks to process" % len(savedLinks)
     for savedLink in savedLinks:
         # pull data out of json
-
         fullname     = savedLink['name']
         kind         = fullname[:2]
         title        = savedLink['link_title'] if (kind == 't1') else savedLink['title']
@@ -62,13 +53,10 @@ def getSavedLinksFromReddit():
 
         print("%s: %s - %s" % (fullname, title, url))
 
-
-
-        # create model, insert into DB
+        # insert into DB
         if True:
             sql = "INSERT INTO savedlinks VALUES (?, ?, ?, ?, ?, ?, ?)"
             args = fullname, kind, title, url, thumbnail, subreddit, subreddit_id
-            # print sql % args
             cursor.execute(sql, args)
 
     cursor.close()
