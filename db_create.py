@@ -1,12 +1,17 @@
-#!flask/bin/python
-from migrate.versioning import api
-from config import SQLALCHEMY_DATABASE_URI
-from config import SQLALCHEMY_MIGRATE_REPO
-from src import db
-import os.path
-db.create_all()
-if not os.path.exists(SQLALCHEMY_MIGRATE_REPO):
-    api.create(SQLALCHEMY_MIGRATE_REPO, 'database repository')
-    api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO)
-else:
-    api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO, api.version(SQLALCHEMY_MIGRATE_REPO))
+import sqlite3
+
+# connect to db
+conn = sqlite3.connect('savedlinks.db')
+c = conn.cursor()
+
+# Create table
+c.execute('''CREATE TABLE savedlinks
+             (
+             fullname       text,
+             kind           text,
+             title          text,
+             url            text,
+             thumbnail      text,
+             subreddit      text,
+             subreddit_id   text
+             )''')

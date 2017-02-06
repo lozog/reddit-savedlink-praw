@@ -1,21 +1,37 @@
-from src import app, db, models
+from src import app #, cursor, db
 
 import praw
+import sqlite3
 
 from flask import render_template
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
 
 from reddit_savedlink import *
+# import config
 
-from user import user,pw
+# from user import user,pw
 
 @app.route('/')
 @app.route('/index')
 def index():
-
     # fetches from DB
-    savedLinks = models.SavedLink.query.all()
-    # savedLinks = []
+    connection = sqlite3.connect('savedlinks.db')
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+    savedLinksResult = cursor.execute("SELECT * FROM savedlinks")
+
+    savedLinks = savedLinksResult.fetchall()
+    # print savedLinks
+
+    for row in savedLinks:
+        print "row: ",
+        print row
+        # savedLinks.append(row)
+    print "done"
+    cursor.close()
+    connection.close()
+
+
 
     theUser = {'name': 'tom---swift'}
 
@@ -26,9 +42,13 @@ def index():
 @app.route('/getSavedLinks', methods=['POST'])
 def getSavedLinksFromReddit():
     savedLinks = getSavedLinks('list',100,0)
-    # savedLinks = models.SavedLink.query.all()
+    # savedLinks = getSavedLinks('list',1,1)
     # savedLinks = []
-    print len(savedLinks)
+
+    connection = sqlite3.connect('savedlinks.db')
+    cursor = connection.cursor()
+
+    print "%d savedLinks to process" % len(savedLinks)
     for savedLink in savedLinks:
         # pull data out of json
 
@@ -40,24 +60,22 @@ def getSavedLinksFromReddit():
         subreddit    = savedLink['subreddit'].display_name
         subreddit_id = savedLink['subreddit_id']
 
-        print('%s: %s - %s' % (fullname, title, url))
+        print("%s: %s - %s" % (fullname, title, url))
+
 
 
         # create model, insert into DB
-        # TODO: try https://github.com/mitsuhiko/flask-sqlalchemy/issues/241
-        if False:
-            u = models.SavedLink(fullname     = fullname,
-                                 kind         = kind,
-                                 title        = title,
-                                 url          = url,
-                                 thumbnail    = thumbnail,
-                                 subreddit    = subreddit,
-                                 subreddit_id = subreddit_id )
-            db.session.add(u)
-            db.session.commit()
+        if True:
+            sql = "INSERT INTO savedlinks VALUES (?, ?, ?, ?, ?, ?, ?)"
+            args = fullname, kind, title, url, thumbnail, subreddit, subreddit_id
+            # print sql % args
+            cursor.execute(sql, args)
 
-    print 'getSavedLinks'
-    # print db.__table__
-    # TODO: store saved links in db
+    cursor.close()
+    connection.commit()
+    connection.close()
+
+    print 'got SavedLinks'
+
     return render_template('mainlisting.html',
                             savedLinks=savedLinks)
