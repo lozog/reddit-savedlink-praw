@@ -18,9 +18,8 @@ def index():
 
     savedLinks = savedLinksResult.fetchall()
 
-    for row in savedLinks:
-        print "row: ",
-        print row
+    # for row in savedLinks:
+        # print "row: %s" % row
 
     print "done"
     cursor.close()
