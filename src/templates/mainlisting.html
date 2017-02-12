@@ -1,23 +1,21 @@
-{% macro render(savedLinks) -%}
+{% macro render(savedLinks, nothumb) -%}
 <div class="main-listing">
   <div class="link-container">
-    <table>
-      <thead>
-        <tr class="table-header">
-          <td>Subreddit</td>
-          <td>Title</td>
-        </tr>
-      </thead>
-      <tbody>
-      {% for link in savedLinks %}
-        <tr class="table-row">
-          <td>{{ link.subreddit }}</td>
-          <td><a href="{{ link.url }}">{{ link.title }}</a></td>
-          <td>{{ link.thumbnail }}</td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+    {% for link in savedLinks %}
+      <a href="{{ link.url }}">
+        <div class="savedlink-card">
+          {% if link.thumbnail is equalto nothumb %}
+          <img src="http://placehold.it/350x150" alt="{{ link.title }}" class="savedlink-thumb">
+          {% else %}
+          <img src="{{ link.thumbnail }}" alt="{{ link.title }}" class="savedlink-thumb">
+          {% endif %}
+          <div class="savedlink-title">
+            <span>{{ link.subreddit }}</span>
+            <span>{{ link.title }}</span>
+          </div>
+        </div>
+      </a>
+    {% endfor %}
   </div>
 </div>
 {%- endmacro %}

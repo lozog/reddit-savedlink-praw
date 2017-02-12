@@ -5,6 +5,7 @@
 <html>
   <head>
     <title>Reddit Saved Links</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   </head>
   <body>
       <h1>{{ theUser.name }}'s saved links</h1>
@@ -20,7 +21,7 @@
         </div>
         <div id="mainlisting">
 
-          {{ mainlisting.render(savedLinks)}}
+          {{ mainlisting.render(savedLinks, nothumb)}}
 
         </div>
       </div>

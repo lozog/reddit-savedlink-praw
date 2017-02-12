@@ -7,6 +7,8 @@ from flask import render_template
 
 from reddit_savedlink import *
 
+nothumb = 'nothumb'
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -29,7 +31,8 @@ def index():
 
     return render_template('index.html',
                            theUser=theUser,
-                           savedLinks=savedLinks)
+                           savedLinks=savedLinks,
+                           nothumb=nothumb)
 
 @app.route('/getSavedLinks', methods=['POST'])
 def getSavedLinksFromReddit():
@@ -51,13 +54,12 @@ def getSavedLinksFromReddit():
                 thumbnail = savedLink['preview']['images'][0]['source']['url']
             else:
                 thumbnail = 'nothumb'
-        # thumbnail    = savedLink['preview']['images'][0]['source']['url'] if (kind == 't3' and 'preview' in savedLink) else 'nothumb'
         subreddit    = savedLink['subreddit'].display_name
         subreddit_id = savedLink['subreddit_id']
-        # print savedLink['preview'] #['images']['source']['url']
-        if 'preview' in savedLink:
-            print savedLink['preview']['images'][0]['source']['url']
-        print thumbnail
+
+        # if 'preview' in savedLink:
+        #     print savedLink['preview']['images'][0]['source']['url']
+        # print thumbnail
 
         # print savedLink['preview']['images'][0]['source']['url']
         # for item in savedLink['preview']['images']:
@@ -79,4 +81,5 @@ def getSavedLinksFromReddit():
     print 'got SavedLinks'
 
     return render_template('mainlisting.html',
-                            savedLinks=savedLinks)
+                            savedLinks=savedLinks,
+                            nothumb=nothumb)
