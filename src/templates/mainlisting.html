@@ -4,18 +4,25 @@
     {% for link in savedLinks %}
       <a href="{{ link.url }}">
         <div class="savedlink-card">
-          {% if link.thumbnail is equalto nothumb %}
-          <img src="http://placehold.it/350x150" alt="{{ link.title }}" class="savedlink-thumb">
-          {% else %}
-          <img src="{{ link.thumbnail }}" alt="{{ link.title }}" class="savedlink-thumb">
-          {% endif %}
-          <div class="savedlink-title">
+          <div class="savedlink-thumb-container">
+            {% if link.thumbnail is equalto nothumb %}
+            <img src="http://placehold.it/420?text=no+thumb" alt="{{ link.title }}" class="savedlink-thumb">
+            {% elif link.thumbnail is equalto 'default' %}
+            <img src="http://placehold.it/420?text=default" alt="{{ link.title }}" class="savedlink-thumb">
+            {% elif link.thumbnail is equalto 'self' %}
+            <img src="http://placehold.it/420?text=self" alt="{{ link.title }}" class="savedlink-thumb">
+            {% else %}
+            <img src="{{ link.thumbnail }}" alt="{{ link.title }}" class="savedlink-thumb">
+            {% endif %}
+          </div> <!-- .savedlink-thumb-container -->
+          <div class="savedlink-info">
             <span>{{ link.subreddit }}</span>
             <span>{{ link.title }}</span>
-          </div>
-        </div>
+          </div> <!-- .savedlink-title -->
+        </div> <!-- .savedlink-card -->
       </a>
     {% endfor %}
-  </div>
-</div>
+    <div class="clear"/>
+  </div> <!-- .link-container -->
+</div> <!-- .main-listing -->
 {%- endmacro %}

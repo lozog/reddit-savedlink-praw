@@ -53,7 +53,11 @@ def getSavedLinksFromReddit():
             if 'preview' in savedLink:
                 thumbnail = savedLink['preview']['images'][0]['source']['url']
             else:
-                thumbnail = 'nothumb'
+                # possible values: self, default
+                thumbnail = savedLink['thumbnail']
+        else:
+            thumbnail = 'nothumb'
+        print thumbnail
         subreddit    = savedLink['subreddit'].display_name
         subreddit_id = savedLink['subreddit_id']
 
