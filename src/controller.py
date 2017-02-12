@@ -46,11 +46,25 @@ def getSavedLinksFromReddit():
         kind         = fullname[:2]
         title        = savedLink['link_title'] if (kind == 't1') else savedLink['title']
         url          = savedLink['link_url']   if (kind == 't1') else savedLink['url']
-        thumbnail    = savedLink['thumbnail']  if (kind == 't3') else 'nothumb'
+        if kind == 't3':
+            if 'preview' in savedLink:
+                thumbnail = savedLink['preview']['images'][0]['source']['url']
+            else:
+                thumbnail = 'nothumb'
+        # thumbnail    = savedLink['preview']['images'][0]['source']['url'] if (kind == 't3' and 'preview' in savedLink) else 'nothumb'
         subreddit    = savedLink['subreddit'].display_name
         subreddit_id = savedLink['subreddit_id']
+        # print savedLink['preview'] #['images']['source']['url']
+        if 'preview' in savedLink:
+            print savedLink['preview']['images'][0]['source']['url']
+        print thumbnail
 
-        print("%s: %s - %s" % (fullname, title, url))
+        # print savedLink['preview']['images'][0]['source']['url']
+        # for item in savedLink['preview']['images']:
+        #     print item
+        #     print '\n'
+        # print "done"
+        # print("%s: %s - %s" % (fullname, title, url))
 
         # insert into DB
         if True:
