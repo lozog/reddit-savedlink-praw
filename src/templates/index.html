@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 
+{% import 'mainlisting.html' as mainlisting %}
+
 <html>
   <head>
     <title>Reddit Saved Links</title>
@@ -18,27 +20,7 @@
         </div>
         <div id="mainlisting">
 
-          <div class="main-listing">
-            <div class="link-container">
-              <table>
-                <thead>
-                  <tr class="table-header">
-                    <td>Subreddit</td>
-                    <td>Title</td>
-                  </tr>
-                </thead>
-                <tbody>
-                {% for link in savedLinks %}
-                  <tr class="table-row">
-                    <td>{{ link.subreddit }}</td>
-                    <td><a href="{{ link.url }}">{{ link.title }}</a></td>
-                    <td>{{ link.thumbnail }}</td>
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          {{ mainlisting.render(savedLinks)}}
 
         </div>
       </div>
