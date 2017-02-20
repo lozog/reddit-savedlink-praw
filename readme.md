@@ -10,6 +10,7 @@ You can use the db_delete script to clear the database
 
 ## Dependencies
 * Flask
+* jQuery
 
 ## TODO
 * feat: GUI - table/card view
