@@ -15,5 +15,5 @@ You can use the db_delete script to clear the database
 ## TODO
 * feat: GUI - table/card view
 * feat: unsave button
-* feat: search
 * feat: filters
+* feat: link to comments
