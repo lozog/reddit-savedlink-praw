@@ -17,9 +17,8 @@
               <img src="{{ link.thumbnail }}" alt="{{ link.title }}" class="savedlink-thumb">
               {% endif %}
             </div> <!-- .savedlink-thumb-container -->
-            <div class="savedlink-info">
-              <span>{{ link.subreddit }}</span>
-              <span>{{ link.title }}</span>
+            <div id="link-info-{{ loop.index }}" class="savedlink-info savedlink-url">
+              {{ link.subreddit }}: {{ link.title }}
             </div> <!-- .savedlink-title -->
           </div> <!-- .savedlink-card -->
         </a>

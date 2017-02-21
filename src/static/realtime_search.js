@@ -54,7 +54,6 @@
 		});
 	})( jQuery, window, document );
 
-
 	// toggling items on title press
 
 	// ;( function( $, window, document, undefined )

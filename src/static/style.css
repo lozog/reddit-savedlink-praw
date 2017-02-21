@@ -2,7 +2,16 @@
   clear: both;
 }
 
+.main-col {
+  font-family: 'Roboto', sans-serif;
+  margin: 3% 11%;
+}
+.header {
+  font-size: 36px;
+}
+
 .savedlink-card {
+  font-family: 'Open Sans', sans-serif;
   width: 320px;
   height: 350px;
   margin-right: 10px;
@@ -10,12 +19,23 @@
   border: 1px solid #014358;
   padding: 5px;
   float: left;
-  background-color: #bdd63b;
+  /*background-color: #bdd63b;*/
+}
+
+.main-listing a {
+  color: black;
+}
+.main-listing a:hover {
+  color: red;
 }
 
 .savedlink-info {
-  background-color: rgba(255,255,255,0.7);
+  /*background-color: rgba(255,255,255,0.7);*/
   margin-top: 5px;
+  height: 55px;
+  overflow: clip;
+  text-overflow: ellipsis;
+  width: 100%;
 }
 
 .savedlink-thumb {
@@ -32,7 +52,7 @@
 /* main-listing styles */
 
 .main-listing {
-  background-color: #ffe00b;
+  /*background-color: #ffe00b;*/
   list-style-type: none;
 }
 

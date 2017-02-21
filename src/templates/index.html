@@ -5,26 +5,27 @@
 <html>
   <head>
     <title>Reddit Saved Links</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   </head>
   <body>
-      <h1>{{ theUser.name }}'s saved links</h1>
+    <div class="main-col">
+      <h1 class="header">{{ theUser.name }}'s saved links</h1>
       <hr>
-      <div class="maincol">
-        <div id="getdata">
-          <button id="pull-reddit-btn" onclick="refreshDB();" type="button" name="pull-reddit">Refresh DB</button
-          <div id="pull-reddit-msg">
-            ...
-          </div>
+      <div id="getdata">
+        <button id="pull-reddit-btn" onclick="refreshDB();" type="button" name="pull-reddit">Refresh DB</button>
+        <div id="pull-reddit-msg">
+          ...
         </div>
-        <div id="msgs" class="msgs">
-        </div>
-        <div id="mainlisting">
-
-          {{ mainlisting.render(savedLinks, nothumb)}}
-
-        </div>
+      </div> <!-- getdata -->
+      <div id="msgs" class="msgs">
       </div>
+      <div id="mainlisting">
+
+        {{ mainlisting.render(savedLinks, nothumb)}}
+
+      </div> <!-- mainlisting -->
+    </div> <!-- maincol -->
   </body>
   <script src="{{ url_for('static', filename='nano.js') }}" type="text/javascript"></script>
   <script src="{{ url_for('static', filename='reddit_savedlink.js') }}" type="text/javascript"></script>
