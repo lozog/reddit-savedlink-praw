@@ -2,6 +2,10 @@
   clear: both;
 }
 
+body {
+  background-color: #f4fbfc;
+}
+
 .main-col {
   font-family: 'Roboto', sans-serif;
   margin: 3% 11%;
@@ -14,12 +18,14 @@
   font-family: 'Open Sans', sans-serif;
   width: 320px;
   height: 350px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #014358;
-  padding: 5px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  /*border: 1px solid #014358;*/
   float: left;
-  /*background-color: #bdd63b;*/
+  -moz-box-shadow:    4px 8px 5px 0px #ccc;
+  -webkit-box-shadow: 4px 8px 5px 0px #ccc;
+  box-shadow:         4px 8px 5px 0px #ccc;
+  background-color: white;
 }
 
 .main-listing a {
@@ -36,6 +42,7 @@
   overflow: clip;
   text-overflow: ellipsis;
   width: 100%;
+  padding: 5px;
 }
 
 .savedlink-thumb {
