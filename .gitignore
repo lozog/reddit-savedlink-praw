@@ -4,3 +4,4 @@ user.py
 *.db
 db_repository/
 sqlitetest.py
+*.rdb
