@@ -84,6 +84,6 @@ def getSavedLinksFromReddit():
 
     print 'got SavedLinks'
 
-    return render_template('mainlisting.html',
+    return render_template('mainlisting-card.html',
                             savedLinks=savedLinks,
                             nothumb=nothumb)

@@ -1,0 +1,31 @@
+{% macro render(savedLinks, nothumb) -%}
+<div class="main-listing">
+  <input type="search" value="" placeholder="">
+  <ul>
+    {% for link in savedLinks %}
+      <li id="link-{{ loop.index }}">
+        <a href="{{ link.url }}">
+          <div class="savedlink-card">
+            <div class="savedlink-thumb-container">
+              {% if link.thumbnail is equalto nothumb %}
+              <img src="http://placehold.it/420?text=no+thumb" alt="{{ link.title }}" class="savedlink-thumb">
+              {% elif link.thumbnail is equalto 'default' %}
+              <img src="http://placehold.it/420?text=default" alt="{{ link.title }}" class="savedlink-thumb">
+              {% elif link.thumbnail is equalto 'self' %}
+              <img src="http://placehold.it/420?text=self" alt="{{ link.title }}" class="savedlink-thumb">
+              {% else %}
+              <img src="{{ link.thumbnail }}" alt="{{ link.title }}" class="savedlink-thumb">
+              {% endif %}
+            </div> <!-- .savedlink-thumb-container -->
+            <div id="link-info-{{ loop.index }}" class="savedlink-info savedlink-url">
+              {{ link.subreddit }}: {{ link.title }}
+            </div> <!-- .savedlink-title -->
+          </div> <!-- .savedlink-card -->
+        </a>
+      </li>
+    {% endfor %}
+    <div class="clear"/>
+    <div class="main-listing__notfound"><p>No matches were found.</p></div>
+  </ul> <!-- .link-container -->
+</div> <!-- .main-listing -->
+{%- endmacro %}
