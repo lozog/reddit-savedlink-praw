@@ -6,14 +6,20 @@ import sqlite3
 from flask import render_template
 
 from reddit_savedlink import *
+from db_create import *
 
 nothumb = 'nothumb'
+DB_PATH = 'savedlinks.db'
 
 @app.route('/')
 @app.route('/index')
 def index():
+    print 'index'
+    # creates DB if necessary
+    db_create(DB_PATH)
+
     # fetches from DB
-    connection = sqlite3.connect('savedlinks.db')
+    connection = sqlite3.connect(DB_PATH)
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
     savedLinksResult = cursor.execute("SELECT * FROM savedlinks")
@@ -36,6 +42,9 @@ def index():
 
 @app.route('/getSavedLinks', methods=['POST'])
 def getSavedLinksFromReddit():
+    # clear db first
+    db_delete(DB_PATH)
+
     savedLinks = getSavedLinks('list',100,0)
     # savedLinks = getSavedLinks('list',1,1)
 
