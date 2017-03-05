@@ -5,8 +5,8 @@
 2. run db_create.py to set up the database
 
 ## Usage
-Use `python run.py`, then load up localhost:5000 in a browser
-You can use the db_delete script to clear the database
+Use `python run.py`, then load up localhost:5000 in a browser.  
+You can use the db_delete script to clear the database.
 
 ## Dependencies
 * Flask
