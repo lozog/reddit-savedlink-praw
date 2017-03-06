@@ -4,24 +4,27 @@
   <ul>
     {% for link in savedLinks %}
       <li id="link-{{ loop.index }}">
-        <a href="{{ link.url }}">
-          <div class="savedlink-card">
-            <div class="savedlink-thumb-container">
+          <div class="savedlink-row">
               {% if link.thumbnail is equalto nothumb %}
-              <img src="http://placehold.it/420?text=no+thumb" alt="{{ link.title }}" class="savedlink-thumb">
+              <div class="savedlink-thumb-container" style="background-image: url(http://placehold.it/175?text=no+thumb)"></div>
+              <!-- <img src="http://placehold.it/175?text=no+thumb" alt="{{ link.title }}" class="savedlink-thumb"> -->
               {% elif link.thumbnail is equalto 'default' %}
-              <img src="http://placehold.it/420?text=default" alt="{{ link.title }}" class="savedlink-thumb">
+              <div class="savedlink-thumb-container" style="background-image: url(http://placehold.it/175?text=default)"></div>
+              <!-- <img src="http://placehold.it/175?text=default" alt="{{ link.title }}" class="savedlink-thumb"> -->
               {% elif link.thumbnail is equalto 'self' %}
-              <img src="http://placehold.it/420?text=self" alt="{{ link.title }}" class="savedlink-thumb">
+              <div class="savedlink-thumb-container" style="background-image: url(http://placehold.it/175?text=self)"></div>
+              <!-- <img src="http://placehold.it/175?text=self" alt="{{ link.title }}" class="savedlink-thumb"> -->
               {% else %}
-              <img src="{{ link.thumbnail }}" alt="{{ link.title }}" class="savedlink-thumb">
+              <div class="savedlink-thumb-container" style="background-image: url({{ link.thumbnail }})"></div>
+              <!-- <img src="{{ link.thumbnail }}" alt="{{ link.title }}" class="savedlink-thumb"> -->
               {% endif %}
-            </div> <!-- .savedlink-thumb-container -->
             <div id="link-info-{{ loop.index }}" class="savedlink-info savedlink-url">
-              {{ link.subreddit }}: {{ link.title }}
+              <a href="{{ link.url }}">
+                {{ link.subreddit }}: {{ link.title }}
+              </a>
             </div> <!-- .savedlink-title -->
-          </div> <!-- .savedlink-card -->
-        </a>
+            <div class="clear"></div>
+          </div> <!-- .savedlink-row -->
       </li>
     {% endfor %}
     <div class="clear"/>

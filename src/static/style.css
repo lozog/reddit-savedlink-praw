@@ -14,6 +14,8 @@ body {
   font-size: 36px;
 }
 
+/* savedlink-card styles */
+
 .savedlink-card {
   font-family: 'Open Sans', sans-serif;
   width: 320px;
@@ -28,14 +30,7 @@ body {
   background-color: white;
 }
 
-.main-listing a {
-  color: black;
-}
-.main-listing a:hover {
-  color: red;
-}
-
-.savedlink-info {
+.savedlink-card .savedlink-info {
   /*background-color: rgba(255,255,255,0.7);*/
   margin-top: 5px;
   height: 55px;
@@ -45,15 +40,48 @@ body {
   padding: 5px;
 }
 
-.savedlink-thumb {
+.savedlink-card .savedlink-thumb {
   width: 100%;
   max-height: 290px;
 }
 
-.savedlink-thumb-container {
+.savedlink-card .savedlink-thumb-container {
   overflow: hidden;
   width: 100%;
   max-height: 290px;
+}
+
+/* savedlink-row styles */
+
+.savedlink-row {
+  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+  height: 100px;
+  background: white;
+  overflow: hidden;
+}
+
+.savedlink-row .savedlink-info {
+  /*background-color: rgba(255,255,255,0.7);*/
+  /*height: 55px;*/
+  /*overflow: clip;*/
+  /*text-overflow: ellipsis;*/
+  width: 81%;
+  padding: 40px 5px 5px;
+  float: left;
+}
+
+.savedlink-row .savedlink-thumb {
+  width: 100%;
+  /*max-height: 290px;*/
+}
+
+.savedlink-row .savedlink-thumb-container {
+  width: 175px;
+  height: 100%;
+  float: left;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 
 /* main-listing styles */
@@ -100,4 +128,15 @@ body {
 .main-listing input:focus
 {
   box-shadow: 0px 4px 8px rgba( 52, 67, 75, .4 );
+}
+
+.main-listing a {
+  color: black;
+}
+.main-listing a:hover {
+  color: red;
+}
+
+.main-listing ul {
+  padding-left: 0;
 }
