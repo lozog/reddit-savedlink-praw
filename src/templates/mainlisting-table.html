@@ -7,16 +7,12 @@
           <div class="savedlink-row">
               {% if link.thumbnail is equalto nothumb %}
               <div class="savedlink-thumb-container" style="background-image: url(http://placehold.it/175?text=no+thumb)"></div>
-              <!-- <img src="http://placehold.it/175?text=no+thumb" alt="{{ link.title }}" class="savedlink-thumb"> -->
               {% elif link.thumbnail is equalto 'default' %}
               <div class="savedlink-thumb-container" style="background-image: url(http://placehold.it/175?text=default)"></div>
-              <!-- <img src="http://placehold.it/175?text=default" alt="{{ link.title }}" class="savedlink-thumb"> -->
               {% elif link.thumbnail is equalto 'self' %}
               <div class="savedlink-thumb-container" style="background-image: url(http://placehold.it/175?text=self)"></div>
-              <!-- <img src="http://placehold.it/175?text=self" alt="{{ link.title }}" class="savedlink-thumb"> -->
               {% else %}
               <div class="savedlink-thumb-container" style="background-image: url({{ link.thumbnail }})"></div>
-              <!-- <img src="{{ link.thumbnail }}" alt="{{ link.title }}" class="savedlink-thumb"> -->
               {% endif %}
             <div id="link-info-{{ loop.index }}" class="savedlink-info savedlink-url">
               <a href="{{ link.url }}">

@@ -2,13 +2,13 @@ import sqlite3
 import os
 
 def db_create(path):
-    print path
-    print os.getcwd()
+    print(path)
+    print(os.getcwd())
     if os.path.exists(path):
-        print 'returning'
+        print("returning")
         return
 
-    print "creating db"
+    print("creating db")
 
     # connect to db
     conn = sqlite3.connect(path)

@@ -5,8 +5,8 @@ import sqlite3
 
 from flask import render_template
 
-from reddit_savedlink import *
-from db_create import *
+from .reddit_savedlink import *
+from .db_create import *
 
 nothumb = 'nothumb'
 DB_PATH = 'savedlinks.db'
@@ -14,7 +14,7 @@ DB_PATH = 'savedlinks.db'
 @app.route('/')
 @app.route('/index')
 def index():
-    print 'index'
+    print("index")
     # creates DB if necessary
     db_create(DB_PATH)
 
@@ -26,10 +26,10 @@ def index():
 
     savedLinks = savedLinksResult.fetchall()
 
-    # for row in savedLinks:
-        # print "row: %s" % row
+    for row in savedLinks:
+        print("row: %s" % row['thumbnail'])
 
-    print "done"
+    print("done")
     cursor.close()
     connection.close()
 
@@ -51,7 +51,7 @@ def getSavedLinksFromReddit():
     connection = sqlite3.connect('savedlinks.db')
     cursor = connection.cursor()
 
-    print "%d savedLinks to process" % len(savedLinks)
+    print("%d savedLinks to process" % len(savedLinks))
     for savedLink in savedLinks:
         # pull data out of json
         fullname     = savedLink['name']
@@ -66,7 +66,7 @@ def getSavedLinksFromReddit():
                 thumbnail = savedLink['thumbnail']
         else:
             thumbnail = 'nothumb'
-        print thumbnail
+        print(thumbnail)
         subreddit    = savedLink['subreddit'].display_name
         subreddit_id = savedLink['subreddit_id']
 
@@ -91,7 +91,7 @@ def getSavedLinksFromReddit():
     connection.commit()
     connection.close()
 
-    print 'got SavedLinks'
+    print("got SavedLinks")
 
     return render_template('mainlisting-card.html',
                             savedLinks=savedLinks,

@@ -4,13 +4,13 @@ import sys
 from time import time
 import json
 from pprint import pprint
-from user import user,pw
+from .user import user,pw
 
 DEBUG_MESSAGES = True
 
 def debug_print( msg ) :
     if DEBUG_MESSAGES:
-        print msg
+        print(msg)
 
 def connect():
     print("Connecting to Reddit...")
@@ -22,10 +22,10 @@ def connect():
                          username=user)
         # print(reddit.user.me())
     except prawcore.exceptions.Forbidden:
-        print "Error logging in."
+        print("Error logging in.")
         sys.exit(0)
     except:
-        print "unrecognized error"
+        print("unrecognized error")
         sys.exit(0)
     return reddit
 
@@ -35,12 +35,12 @@ def getSavedLinksPRAW(redditor, limit, after, count=0):
     print("Getting saved links")
     try:
         if after != None:
-            print after
+            print(after)
             savedLinks = redditor.saved(limit=limit,params={'after':after,'count':count})
         else:
             savedLinks = redditor.saved(limit=limit)
     except prawcore.exceptions.Forbidden:
-        print "Error connecting."
+        print("Error connecting.")
         sys.exit(0)
 
     print("Got 'em.")
@@ -49,7 +49,7 @@ def getSavedLinksPRAW(redditor, limit, after, count=0):
 # count: # of links to pull at a time
 # limit: # of total pulls to perform. Use 0 for unlimited
 def getSavedLinks( cmd, count=100, limit=0 ):
-    print('----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
+    print("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
     print("Starting with count %d and limit %d" % (count, limit))
 
     reddit = connect()
@@ -59,7 +59,7 @@ def getSavedLinks( cmd, count=100, limit=0 ):
     print(redditor)
 
     reqTime = time()
-    print reqTime
+    print(reqTime)
     savedLinks = getSavedLinksPRAW(redditor, count, None)
 
     savedLinkOut = []
@@ -69,7 +69,7 @@ def getSavedLinks( cmd, count=100, limit=0 ):
             if ( time() - reqTime < 2 ):                        # ratelimit: check to see if enough time has elapsed
                 continue                                        # busy-wait until enough time has elapsed
 
-            print time()
+            print(time())
 
             countRemaining = count
             for link in savedLinks:
@@ -86,17 +86,17 @@ def getSavedLinks( cmd, count=100, limit=0 ):
                 # pprint(linkdata)
                 countRemaining -= 1
 
-            print ("countRemaining: %d" % countRemaining)
+            print("countRemaining: %d" % countRemaining)
 
             if ( limit > 0 and i == limit ):
-                print 'At limit. Breaking.'
+                print("At limit. Breaking.")
                 break
 
             if ( countRemaining > 0 ):                      # if we didn't reach the limit, we're at the end of the content
                 # print("%d remaining. Breaking.", countRemaining)
                 break
 
-            print "retrieving more..."
+            print("retrieving more...")
             i += 1
             savedLinks = getSavedLinksPRAW(redditor, limit, fullname, i * count)
 
